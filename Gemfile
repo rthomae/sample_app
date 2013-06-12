@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 # DO NOT COPY PASTE FROM TUTORIAL
 gem 'rails', '3.2.13'
+gem 'bootstrap-sass', '2.1'
 # WE USE POSTGRES EVERYWHERE BC WE R FUCKING AWESOME
 gem 'pg', '0.12.2'
 

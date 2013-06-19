@@ -40,6 +40,11 @@ describe "Authentication" do
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
+        it { should_not have_link('Users', href: users_path) }
+        it { should_not have_link('Profile', href: user_path(user)) }
+        it { should_not have_link('Settings', href: edit_user_path(user)) }
+        it { should_not have_link('Sign out', href: signout_path) }
+   
       end
     end
   end
@@ -98,6 +103,21 @@ describe "Authentication" do
       end
     end
 
+    describe "as signed-in user" do
+      let (:user) { FactoryGirl.create(:user) }
+      before { sign_in user }
+
+      describe "accessing the Users create action" do
+        before { post users_path }
+        specify { response.should redirect_to(root_path) }
+      end
+
+      describe "accessing the Users new action" do
+        before { get new_user_path }
+        specify { response.should redirect_to(root_path) }
+      end
+
+    end
     describe "as non-admin user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:non_admin) { FactoryGirl.create(:user) }
